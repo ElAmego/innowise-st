@@ -9,7 +9,5 @@ public class Main {
         final String path = "data/example.txt";
         final TextReader textReader = new TextReaderImpl(path);
         System.out.println(textReader.readText());
-
-        // FileReader -> Composite -> TextComponent parsers -> Chain Of Responsibility
     }
 }
