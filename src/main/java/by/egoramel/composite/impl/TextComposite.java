@@ -1,7 +1,7 @@
 package by.egoramel.composite.impl;
 
 import by.egoramel.composite.Composite;
-import by.egoramel.composite.Leaf;
+import by.egoramel.composite.TextComponent;
 import by.egoramel.enums.TextComponentType;
 
 import java.util.ArrayList;
@@ -9,7 +9,9 @@ import java.util.List;
 
 public final class TextComposite implements Composite {
     private final TextComponentType textComponentType;
-    private final List<Leaf> leafList = new ArrayList<>();
+    private final List<TextComponent> textComponentList = new ArrayList<>();
+    private static final String SPACE = " ";
+    private static final String NEW_PARAGRAPH = "\n";
 
     public TextComposite(final TextComponentType textComponentType) {
         this.textComponentType = textComponentType;
@@ -19,26 +21,39 @@ public final class TextComposite implements Composite {
     public int count() {
         int result = 0;
 
-        for (final Leaf leaf: leafList) {
-            result += leaf.count();
+        for (final TextComponent textComponent : textComponentList) {
+            result += textComponent.count();
         }
 
         return result;
     }
 
     @Override
-    public String toString() {
-        final StringBuilder stringBuilder = new StringBuilder();
+    public String asString() {
+        StringBuilder text = new StringBuilder();
 
-        for (final Leaf leaf: leafList) {
-            stringBuilder.append(leaf.toString());
+        for (final TextComponent component : textComponentList) {
+            text.append(component.asString());
+
+            if (textComponentType == TextComponentType.SENTENCE || textComponentType == TextComponentType.PARAGRAPH) {
+                text.append(SPACE);
+            }
+
+            if (textComponentType == TextComponentType.TEXT) {
+                text.append(NEW_PARAGRAPH);
+            }
         }
 
-        return stringBuilder.toString();
+        return text.toString();
     }
 
     @Override
-    public void addLeaf(final Leaf leaf) {
-        leafList.add(leaf);
+    public void add(final TextComponent textComponent) {
+        textComponentList.add(textComponent);
+    }
+
+    @Override
+    public List<TextComponent> getChildren() {
+        return List.copyOf(textComponentList);
     }
 }
