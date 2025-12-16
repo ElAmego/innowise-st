@@ -1,5 +1,8 @@
 package by.egoramel.composite;
 
-public interface Composite extends Leaf {
-    void addLeaf(final Leaf leaf);
+import java.util.List;
+
+public interface Composite extends TextComponent {
+    void add(final TextComponent textComponent);
+    List<TextComponent> getChildren();
 }

@@ -1,9 +1,9 @@
 package by.egoramel.composite.impl;
 
-import by.egoramel.composite.Leaf;
+import by.egoramel.composite.TextComponent;
 import by.egoramel.enums.TextComponentType;
 
-public final class CharacterLeaf implements Leaf {
+public final class CharacterLeaf implements TextComponent {
     private static final int characterLength = 1;
     private final TextComponentType textComponentType;
     private final char character;
@@ -14,7 +14,7 @@ public final class CharacterLeaf implements Leaf {
     }
 
     @Override
-    public String toString() {
+    public String asString() {
         return String.valueOf(character);
     }
 
